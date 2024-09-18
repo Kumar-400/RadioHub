@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Indian FM Radio Hub</title>
+    
+    <!-- Google Fonts for stylish font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon for radio icon -->
+    <link rel="icon" href="https://w7.pngwing.com/pngs/346/79/png-transparent-internet-radio-computer-icons-radio-electronics-fm-broadcasting-radio-station-thumbnail.png" type="image/png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #ff4757;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .radio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .radio-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .radio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .radio-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: #ff4757;
+        }
+
+        .radio-card p {
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .radio-card audio, .radio-card video {
+            width: 100%;
+            outline: none;
+            border-radius: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: #ff4757;
+            color: white;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .radio-card h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .radio-card {
+                padding: 15px;
+            }
+
+            header {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Indian FM Radio Hub</h1>
+        <p>Stream your favorite Indian radio stations online in one place</p>
+    </header>
+
+    <div class="container">
+        <div class="radio-grid">
+            <!-- Akashvani Live Radio -->
+            <div class="radio-card">
+                <h3>Akashvani Live Radio</h3>
+                <p>Indian news and talk shows</p>
+                <video id="vividhbharati" controls></video>
+            </div>
+
+            <!-- Radio Mirchi -->
+            <div class="radio-card">
+                <h3>Radio Mirchi</h3>
+                <p>Bollywood hits, latest tracks</p>
+                <audio id="radioMirchi" controls>
+                    <source src="https://listen.openstream.co/4603/audio" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
+            <!-- Radio City -->
+            <div class="radio-card">
+                <h3>Radio City</h3>
+                <p>Bollywood and Hindi hits</p>
+                <audio id="radioCity" controls>
+                    <source src="https://stream.zeno.fm/pxc55r5uyc9uv" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
+            <!-- Radio Baingan Bollywood -->
+            <div class="radio-card">
+                <h3>Radio Baingan Bollywood</h3>
+                <p>Nonstop Bollywood music</p>
+                <audio id="radioBaingan" controls>
+                    <source src="https://stream.zeno.fm/eyxg23ky4x8uv" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
+            <!-- Arijit Singh -->
+            <div class="radio-card">
+                <h3>Arijit Singh</h3>
+                <p>Popular Arijit songs</p>
+                <audio id="arijitSingh" controls>
+                    <source src="https://drive.uber.radio/uber/bollywoodaruitsingh/icecast.audio" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Indian FM Radio Hub | <a href="#">Contact Us</a></p>
+    </footer>
+
+    <!-- Include hls.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        if (Hls.isSupported()) {
+            var video = document.getElementById('vividhbharati');
+            var hls = new Hls();
+            hls.loadSource('https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio002/hlspbaudio002_Auto.m3u8');
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                // Play only after user interaction
+                video.addEventListener('click', function() {
+                    video.play();
+                });
+            });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = 'https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio002/hlspbaudio002_Auto.m3u8';
+            video.addEventListener('click', function() {
+                video.play();
+            });
+        }
+
+        // Stop previous station when a new one starts
+        const allAudioElements = document.querySelectorAll('audio, video');
+        
+        allAudioElements.forEach((audioElement) => {
+            audioElement.addEventListener('play', function() {
+                allAudioElements.forEach((otherElement) => {
+                    if (otherElement !== audioElement) {
+                        otherElement.pause();
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
